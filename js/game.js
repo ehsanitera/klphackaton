@@ -53,9 +53,6 @@
                     stepDistance: 16
                 });
                 this.add('2d, stepControls, animation');
-                this.on('hit.sprite', function (collision) {
-
-                });
             },
             step: function (dt) {
                 if (this.p.stepping) {
@@ -105,7 +102,7 @@
 			var container = stage.insert(new Q.UI.Container({
 				x : Q.width / 2,
 				y : Q.height / 2,
-				fill : "rgba(0,0,0,0.5)"
+				fill : "rgba(0,0,0,0.6)"
 			}));
 			
 			var question = container.insert(new Q.UI.Text({
