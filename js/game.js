@@ -56,9 +56,6 @@
                     stepDistance: 18
                 });
                 this.add('2d, stepControls, animation');
-                this.on('hit.sprite', function (collision) {
-
-                });
             },
             step: function (dt) {
                 if (this.p.stepping) {
