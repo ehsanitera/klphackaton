@@ -93,7 +93,7 @@
                 tileH: 16
             }));
             stage.insert(new Q.Question({x: 68, y:16 }));
-            var hero = stage.insert(new Q.Mario({ x: 182, y: 150 }));
+            var hero = stage.insert(new Q.Mario({ x: 10, y: 600 }));
             stage.add('viewport').follow(hero);
         });
 
