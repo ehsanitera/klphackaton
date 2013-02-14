@@ -4,7 +4,7 @@
         var Q = Quintus().
             include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
             setup({maximize: true}).
-            controls().
+            controls(true).
             touch();
 
         var interval = setInterval(function() {
