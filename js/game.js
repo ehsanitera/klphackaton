@@ -1,19 +1,19 @@
 (function (env) {
-    env.addEventListener("load", function() {
+    env.addEventListener("load", function () {
         var Q = Quintus().
-                include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
-                setup({maximize: true}).
-                controls().
-                touch();
+            include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
+            setup({maximize: true}).
+            controls().
+            touch();
 
         Q.animations('Mario', {
             run_right: {
-                frames: [0,1,2,3,4,5,6,7],
-                rate: 1/8
+                frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                rate: 1 / 8
             },
             run_left: {
-                frames: [8,9,10,12,13,14,15],
-                rate: 1/8
+                frames: [8, 9, 10, 12, 13, 14, 15],
+                rate: 1 / 8
             },
             stand_right: {
                 frames: [0],
@@ -22,28 +22,46 @@
             stand_left: {
                 frames: [8],
                 loop: false
+            },
+            run_up: {
+                frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                rate: 1 / 8
+            },
+            run_down: {
+                frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                rate: 1 / 8
             }
+
         });
 
-        Q.Sprite.extend('Mario',{
-            init: function(p) {
+        Q.Sprite.extend('Mario', {
+            init: function (p) {
                 this._super(p, {
                     sprite: 'Mario',
-                    sheet: 'BabyMario'
+                    sheet: 'BabyMario',
+                    gravity: 0,
+                    stepDistance: 12
                 });
-                this.add('2d, platformerControls, animation');
-                this.on('hit.sprite', function(collision) {
+                this.add('2d, stepControls, animation');
+                this.on('hit.sprite', function (collision) {
 
                 });
             },
-            step: function(dt) {
-                if (this.p.vx > 0) this.play('run_right')
-                else if (this.p.vx < 0) this.play('run_left')
-                else this.play('stand_'  + this.p.direction);
+            step: function (dt) {
+                if (this.p.stepping) {
+                    if(this.p.origX < this.p.destX) this.play("run_right")
+                    else if(this.p.origX > this.p.destX){
+                        this.play("run_left");
+                    };
+                } else{
+                    debugger;
+                    this.play("stand_right");
+                }
+
             }
         });
 
-        Q.scene('level',function(stage){
+        Q.scene('level', function (stage) {
             stage.collisionLayer(new Q.TileLayer({
                 dataAsset: 'level.json',
                 sheet: 'Tiles',
@@ -55,34 +73,34 @@
             stage.add('viewport').follow(hero);
         });
 
-        Q.scene('hud', function(stage) {
+        Q.scene('hud', function (stage) {
             var score = 0;
             var pensionLbl = stage.insert(new Q.UI.Text({
                 x: Q.width / 2,
-                y:20,
+                y: 20,
                 align: 'center',
                 family: 'Monospace',
                 size: 16,
                 label: score.toString()
             }));
-            Q.state.on('change.score', function() {
+            Q.state.on('change.score', function () {
                 pensionLbl.p.label = Q.state.get('score').toString();
             })
 
         });
 
-        Q.scene('endGame', function(stage) {
+        Q.scene('endGame', function (stage) {
             stage.insert(
                 new Q.UI.Text({
-                    x:Q.width/2,
-                    y:Q.height/2,
+                    x: Q.width / 2,
+                    y: Q.height / 2,
                     family: 'Monospace',
                     size: 24,
-                    label: 'Velkommen til pensjonisttilværelsen!\nDu fikk '+ Q.state.get('score') +' i pensjon.'
+                    label: 'Velkommen til pensjonisttilværelsen!\nDu fikk ' + Q.state.get('score') + ' i pensjon.'
                 }))
         });
 
-        Q.load('sprites.png, sprites.json, level.json', function() {
+        Q.load('sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
 
