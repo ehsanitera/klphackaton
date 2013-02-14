@@ -1,9 +1,9 @@
 {
     "BabyMario": {
         "tilew": 24,
-        "tileh": 48,
+        "tileh": 32,
         "sx": 0,
-        "sy": 96
+        "sy": 16
     },
     "Mario": {
         "tilew": 24,

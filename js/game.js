@@ -33,7 +33,7 @@
             }
 
         });
-
+        var lastDir = "right";
         Q.Sprite.extend('Mario', {
             init: function (p) {
                 this._super(p, {
@@ -49,13 +49,20 @@
             },
             step: function (dt) {
                 if (this.p.stepping) {
-                    if(this.p.origX < this.p.destX) this.play("run_right")
+                    if(this.p.origX < this.p.destX){
+                        this.play("run_right");
+                        lastDir = "right";
+                    }
                     else if(this.p.origX > this.p.destX){
                         this.play("run_left");
-                    };
+                        lastDir="left";
+                    }
+                    if(this.p.origY !== this.p.destY){
+                        this.play("run_" + lastDir);
+                    }
                 } else{
-                    debugger;
-                    this.play("stand_right");
+                    this.play("stand_" + lastDir);
+
                 }
 
             }
