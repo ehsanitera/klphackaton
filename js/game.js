@@ -1,11 +1,11 @@
 (function (env) {
     env.addEventListener("load", function () {
     	var score = 0;
-        var Q = Quintus().
-            include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
+        var Q = Quintus({ audioSupported: [ 'mp3','wav' ] }).
+            include('Audio, Sprites, Anim, Scenes, Input, 2D, Touch, UI').
             setup({maximize: true}).
-            controls().
-            touch();
+            controls(true).
+            enableSound();
 
         var interval = setInterval(function() {
             score = score+1;
@@ -90,11 +90,61 @@
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('Mario')) {
 	                    this.destroy();	
-                      //  Q.stageScene('endGame',1); ASK QUESTIONS
+                    	Q.stageScene('showQuestion', 1, {
+                    		questionText: "Hva heter onkelen til Donald Duck?", 
+                    		alternativeA: "Onkel Skrue", 
+                    		alternativeB: "Fetter Anton", 
+                    		correctAnswer: "A"
+                    	});
                     }
                 });
             }
         });
+        
+        
+		Q.scene('showQuestion', function(stage) {
+			var container = stage.insert(new Q.UI.Container({
+				x : Q.width / 2,
+				y : Q.height / 2,
+				fill : "rgba(0,0,0,0.5)"
+			}));
+			
+			var question = container.insert(new Q.UI.Text({
+				x : 0,
+				y : 0,
+				color: "white",
+				size: 16,
+				label : stage.options.questionText
+			}));
+			
+			var buttonA = container.insert(new Q.UI.Button({
+				x : 0,
+				y : question.p.h + 20,
+				fontColor: "white",
+				font: "800 16px arial",
+				fill : "#CCCCCC",
+				label : stage.options.alternativeA
+			}));
+			
+			var buttonB = container.insert(new Q.UI.Button({
+				x : 0,
+				y : question.p.h + 10 + buttonA.p.h + 20,
+				fontColor: "white",
+				font: "800 16px arial",
+				fill : "#CCCCCC",
+				label : stage.options.alternativeB
+			}));
+			
+			buttonA.on("click", function() {
+				console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
+			});
+			
+			buttonB.on("click", function() {
+				console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
+			});
+
+			container.fit(20);
+		});        
 
         Q.scene('level', function (stage) {
             stage.collisionLayer(new Q.TileLayer({
@@ -130,12 +180,13 @@
                     size: 24,
                     label: 'Dun dun dun...Game over!'
                 }))
+                Q.play('game_over.mp3');
         });
 
-        Q.load('sprites.png, sprites.json, level.json', function () {
+        Q.load('main_theme.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
-
+            Q.play('main_theme.mp3');
             Q.stageScene('level');
             Q.stageScene('hud', 1)
         });
