@@ -67,6 +67,23 @@
 
             }
         });
+        
+        Q.Sprite.extend('Question', {
+            init: function(p) {
+                this._super(p, {
+                    sprite: 'Question',
+                    sheet: 'Question',
+                    gravity: 0
+                });
+                this.add('2d');
+                this.on('hit.sprite', function(collision) {
+                    if (collision.obj.isA('Mario')) {
+                      //  Q.stageScene('endGame',1); ASK QUESTIONS
+                        Q.stage(0).pause();
+                    }
+                });
+            }
+        });
 
         Q.scene('level', function (stage) {
             stage.collisionLayer(new Q.TileLayer({
@@ -75,8 +92,8 @@
                 tileW: 16,
                 tileH: 16
             }));
-
-            var hero = stage.insert(new Q.Mario({ x: 182, y: 150 }));
+            stage.insert(new Q.Question({x: 68, y:16 }));
+            var hero = stage.insert(new Q.Mario({ x: 10, y: 600 }));
             stage.add('viewport').follow(hero);
         });
 
