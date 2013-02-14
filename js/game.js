@@ -1,10 +1,11 @@
 (function (env) {
     env.addEventListener("load", function () {
     	var score = 0;
-        var Q = Quintus().
-            include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
+        var Q = Quintus({ audioSupported: [ 'mp3','wav' ] }).
+            include('Audio, Sprites, Anim, Scenes, Input, 2D, Touch, UI').
             setup({maximize: true}).
-            controls(true);
+            controls(true).
+            enableSound();
 
         var interval = setInterval(function() {
             score = score+1;
@@ -179,12 +180,13 @@
                     size: 24,
                     label: 'Dun dun dun...Game over!'
                 }))
+                Q.play('game_over.mp3');
         });
 
-        Q.load('sprites.png, sprites.json, level.json', function () {
+        Q.load('main_theme.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
-
+            Q.play('main_theme.mp3');
             Q.stageScene('level');
             Q.stageScene('hud', 1)
         });
