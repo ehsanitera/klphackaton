@@ -89,11 +89,61 @@
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('Mario')) {
 	                    this.destroy();	
-                      //  Q.stageScene('endGame',1); ASK QUESTIONS
+                    	Q.stageScene('showQuestion', 1, {
+                    		questionText: "Hva heter onkelen til Donald Duck?", 
+                    		alternativeA: "Onkel Skrue", 
+                    		alternativeB: "Fetter Anton", 
+                    		correctAnswer: "A"
+                    	});
                     }
                 });
             }
         });
+        
+        
+		Q.scene('showQuestion', function(stage) {
+			var container = stage.insert(new Q.UI.Container({
+				x : Q.width / 2,
+				y : Q.height / 2,
+				fill : "rgba(0,0,0,0.5)"
+			}));
+			
+			var question = container.insert(new Q.UI.Text({
+				x : 0,
+				y : 0,
+				color: "white",
+				size: 16,
+				label : stage.options.questionText
+			}));
+			
+			var buttonA = container.insert(new Q.UI.Button({
+				x : 0,
+				y : question.p.h + 20,
+				fontColor: "white",
+				font: "800 16px arial",
+				fill : "#CCCCCC",
+				label : stage.options.alternativeA
+			}));
+			
+			var buttonB = container.insert(new Q.UI.Button({
+				x : 0,
+				y : question.p.h + 10 + buttonA.p.h + 20,
+				fontColor: "white",
+				font: "800 16px arial",
+				fill : "#CCCCCC",
+				label : stage.options.alternativeB
+			}));
+			
+			buttonA.on("click", function() {
+				console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
+			});
+			
+			buttonB.on("click", function() {
+				console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
+			});
+
+			container.fit(20);
+		});        
 
         Q.scene('level', function (stage) {
             stage.collisionLayer(new Q.TileLayer({
