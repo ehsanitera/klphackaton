@@ -40,7 +40,7 @@
                     sprite: 'Mario',
                     sheet: 'BabyMario',
                     gravity: 0,
-                    stepDistance: 12
+                    stepDistance: 18
                 });
                 this.add('2d, stepControls, animation');
                 this.on('hit.sprite', function (collision) {
