@@ -1,10 +1,21 @@
 (function (env) {
     env.addEventListener("load", function () {
+    	var score = 0;
         var Q = Quintus().
             include('Sprites, Anim, Scenes, Input, 2D, Touch, UI').
             setup({maximize: true}).
             controls().
             touch();
+
+        var interval = setInterval(function() {
+            score = score+1;
+            Q.stageScene('hud', 1);
+            if(score === 120) {
+                Q.stageScene('endGame',1);
+                Q.stage(0).pause();
+                clearInterval(interval);
+            }
+        },1000);
 
         Q.animations('Mario', {
             run_right: {
@@ -97,30 +108,25 @@
             stage.add('viewport').follow(hero);
         });
 
-        Q.scene('hud', function (stage) {
-            var score = 0;
+        Q.scene('hud', function(stage) {
             var pensionLbl = stage.insert(new Q.UI.Text({
                 x: Q.width / 2,
-                y: 20,
+                y:20,
                 align: 'center',
                 family: 'Monospace',
                 size: 16,
                 label: score.toString()
             }));
-            Q.state.on('change.score', function () {
-                pensionLbl.p.label = Q.state.get('score').toString();
-            })
-
         });
 
-        Q.scene('endGame', function (stage) {
+        Q.scene('endGame', function(stage) {
             stage.insert(
                 new Q.UI.Text({
-                    x: Q.width / 2,
-                    y: Q.height / 2,
+                    x:Q.width/2,
+                    y:Q.height/2,
                     family: 'Monospace',
                     size: 24,
-                    label: 'Velkommen til pensjonisttilværelsen!\nDu fikk ' + Q.state.get('score') + ' i pensjon.'
+                    label: 'Dun dun dun...Game over!'
                 }))
         });
 
