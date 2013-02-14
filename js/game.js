@@ -20,30 +20,27 @@
         Q.input.joypadControls();
 
         Q.animations('Mario', {
+            run_up: {
+                frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                rate: 1 / 15
+            },
             run_right: {
-                frames: [0, 1, 2, 3, 4, 5, 6, 7],
-                rate: 1 / 8
+                frames: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+                rate: 1 / 15
             },
             run_left: {
-                frames: [8, 9, 10, 12, 13, 14, 15],
-                rate: 1 / 8
-            },
-            stand_right: {
-                frames: [0],
-                loop: false
-            },
-            stand_left: {
-                frames: [8],
-                loop: false
-            },
-            run_up: {
-                frames: [0, 1, 2, 3, 4, 5, 6, 7],
-                rate: 1 / 8
+                frames: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45],
+                rate: 1 / 15
             },
             run_down: {
-                frames: [0, 1, 2, 3, 4, 5, 6, 7],
-                rate: 1 / 8
+                frames: [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
+                rate: 1 / 15
+            },
+            standing: {
+                frames: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75],
+                rate: 1 / 15
             }
+
 
         });
         var lastDir = "right";
@@ -51,9 +48,9 @@
             init: function (p) {
                 this._super(p, {
                     sprite: 'Mario',
-                    sheet: 'BabyMario',
+                    sheet: 'OlaNordmann',
                     gravity: 0,
-                    stepDistance: 18
+                    stepDistance: 16
                 });
                 this.add('2d, stepControls, animation');
                 this.on('hit.sprite', function (collision) {
@@ -64,17 +61,17 @@
                 if (this.p.stepping) {
                     if(this.p.origX < this.p.destX){
                         this.play("run_right");
-                        lastDir = "right";
                     }
                     else if(this.p.origX > this.p.destX){
                         this.play("run_left");
-                        lastDir="left";
                     }
-                    if(this.p.origY !== this.p.destY){
-                        this.play("run_" + lastDir);
+                    if(this.p.origY > this.p.destY){
+                        this.play("run_up");
+                    } else if(this.p.origY < this.p.destY){
+                        this.play("run_down");
                     }
                 } else{
-                    this.play("stand_" + lastDir);
+                    this.play("standing");
 
                 }
 
@@ -158,7 +155,7 @@
             stage.insert(new Q.Question({x: 248, y:380 }));
             stage.insert(new Q.Question({x: 198, y:190 }));
             stage.insert(new Q.Question({x: 248, y:470 }));
-            var hero = stage.insert(new Q.Mario({ x: 10, y: 620 }));
+            var hero = stage.insert(new Q.Mario({ x: 0, y: 620 }));
             stage.add('viewport').follow(hero);
         });
 
