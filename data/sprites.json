@@ -1,0 +1,44 @@
+{
+    "BabyMario": {
+        "tilew": 24,
+        "tileh": 48,
+        "sx": 0,
+        "sy": 96
+    },
+    "Mario": {
+        "tilew": 24,
+        "tileh": 48,
+        "sx": 0,
+        "sy": 0
+    },
+    "OldMario": {
+        "tilew": 24,
+        "tileh": 48,
+        "sx": 0,
+        "sy": 48
+    },
+    "Mushroom" : {
+        "tilew": 24,
+        "tileh": 24,
+        "sx": 0,
+        "sy": 144
+    },
+    "Tiles": {
+        "tilew": 16,
+        "tileh": 16,
+        "sx": 0,
+        "sy": 168
+    },
+    "Coin": {
+        "tilew": 16,
+        "tileh": 16,
+        "sx": 0,
+        "sy": 184
+    },
+    "Palm": {
+        "tilew": 32,
+        "tileh": 32,
+        "sx":0,
+        "sy": 200
+    }
+}
