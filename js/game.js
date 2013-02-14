@@ -89,8 +89,8 @@
                 this.add('2d');
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('Mario')) {
+	                    this.destroy();	
                       //  Q.stageScene('endGame',1); ASK QUESTIONS
-                        Q.stage(0).pause();
                     }
                 });
             }
@@ -103,8 +103,8 @@
                 tileW: 16,
                 tileH: 16
             }));
-            stage.insert(new Q.Question({x: 68, y:16 }));
-            var hero = stage.insert(new Q.Mario({ x: 10, y: 600 }));
+            stage.insert(new Q.Question({x: 248, y:380 }));
+            var hero = stage.insert(new Q.Mario({ x: 10, y: 620 }));
             stage.add('viewport').follow(hero);
         });
 
