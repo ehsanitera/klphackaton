@@ -152,7 +152,7 @@
             stage.insert(new Q.Question({x: 248, y:380 }));
             stage.insert(new Q.Question({x: 198, y:190 }));
             stage.insert(new Q.Question({x: 248, y:470 }));
-            var hero = stage.insert(new Q.OlaNordmann({ x: 0, y: 820 }));
+            var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
 
