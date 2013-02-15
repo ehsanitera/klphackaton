@@ -9,7 +9,7 @@
 
         var interval = setInterval(function () {
             score = score + 1;
-            Q.stageScene('hud', 1);
+            Q.state.inc("score", 1);
             if (score === 120) {
                 Q.stageScene('endGame', 1);
                 Q.stage(0).pause();
@@ -43,7 +43,6 @@
 
 
         });
-        var lastDir = "right";
         Q.Sprite.extend('OlaNordmann', {
             init: function (p) {
                 this._super(p, {
@@ -167,7 +166,7 @@
             });
             var freeAreas = findEmptyTiles(tileLayer.p.tiles);
             stage.collisionLayer(tileLayer);
-            var numQs = Math.floor((Math.random() * 10) + 1);
+            var numQs = 10;
             for (var q = 0; q < numQs; q++) {
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
@@ -185,6 +184,9 @@
                 size: 16,
                 label: score.toString()
             }));
+            Q.state.on('change.score', function() {
+                pensionLbl.p.label = Q.state.get('score').toString();
+            })
         });
 
         Q.scene('endGame', function (stage) {
