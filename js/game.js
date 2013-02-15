@@ -116,7 +116,7 @@
 	                       if(time === 3){
 	                          Q.stage(0).pause();
 	                          clearInterval(interval);
-	                          Q.stageScene('endGame',1);
+	                          Q.stageScene('victory',1);
 	                       }
 	                    }, 1000);
                     }
@@ -232,8 +232,21 @@
                 }))
                 Q.play('game_over.mp3');
         });
+        
+        Q.scene('victory', function(stage) {
+            stage.insert(
+                new Q.UI.Text({
+                    x:Q.width/2,
+                    y:Q.height/2,
+                    family: 'Helvetica',
+                    size: 36,
+                    color: 'gold',
+                    label: "VICTORY! You\'re cooler than Batman!"
+                }))
+                Q.play('kids_cheer.mp3');
+        });
 
-        Q.load('question.mp3, start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('question.mp3, start_sound.mp3, kids_cheer.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
