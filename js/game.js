@@ -208,14 +208,14 @@
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
-            stage.insert(new Q.Finish({x: 920, y:360 }));
+            stage.insert(new Q.Finish({x: 940, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
 
         Q.scene('hud', function(stage) {
             var container = stage.insert(new Q.UI.Container({
-                x: Q.width/16,
+                x: Q.width/12,
                 y: Q.height/16,
                 fill: "gray",
                 border: 5,
@@ -239,7 +239,7 @@
                     Q.stage(0).pause();
                     clearInterval(interval);
                 }
-                pensionLbl.p.label = 'Time: ' + Q.state.get('score').toString();
+                pensionLbl.p.label = 'Tid: ' + Q.state.get('score').toString();
             })
             container.fit(20,20);
         });
@@ -250,8 +250,8 @@
                     x:Q.width/2,
                     y:Q.height/2,
                     family: 'Helvetica',
-                    size: 24,
-                    color: 'white',
+                    size: 36,
+                    color: 'red',
                     label: 'Game Over!'
                 }))
                 Q.play('game_over.mp3');
