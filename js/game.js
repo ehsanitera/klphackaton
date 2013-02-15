@@ -250,8 +250,8 @@
                     x:Q.width/2,
                     y:Q.height/2,
                     family: 'Helvetica',
-                    size: 24,
-                    color: 'white',
+                    size: 36,
+                    color: 'red',
                     label: 'Game Over!'
                 }))
                 Q.play('game_over.mp3');
