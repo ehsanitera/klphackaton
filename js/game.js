@@ -248,8 +248,8 @@
                     x:Q.width/2,
                     y:Q.height/2,
                     family: 'Helvetica',
-                    size: 36,
-                    color: 'gold',
+                    size: 48,
+                    color: 'white',
                     label: "VICTORY! You\'re cooler than Batman!"
                 }))
                 Q.play('kids_cheer.mp3');
