@@ -9,11 +9,6 @@
         var interval = setInterval(function () {
             score = score + 1;
             Q.state.inc('score', 1);
-            if (score === 120) {
-                Q.stageScene('endGame', 1);
-                Q.stage(0).pause();
-                clearInterval(interval);
-            }
         }, 1000);
 
         Q.input.touchControls({
@@ -166,20 +161,21 @@
                 label: stage.options.alternativeB
             }));
 
-            buttonA.on("click", function () {
-                console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
-                if(stage.options.correctAnswer === "A") {
-	                stage.options.q.destroy();
-	                container.destroy();
+            var answerFunction = function(answer){
+                stage.options.q.destroy();
+                container.destroy();
+                if(stage.options.correctAnswer === answer) {
+                    Q.state.inc("score", -5)
                 }
+                Q.stageScene('hud', 1)
+            };
+
+            buttonA.on("click", function () {
+                answerFunction("A");
             });
 
             buttonB.on("click", function () {
-                console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
-                if(stage.options.correctAnswer === "B") {
-	                stage.options.q.destroy();
-	                container.destroy();
-                }
+                answerFunction("B");
             });
 
             container.fit(20);
@@ -237,7 +233,13 @@
                 label: 'Time: ' +score.toString()
             }));
             Q.state.on('change.score', function() {
-                pensionLbl.p.label = 'Time: ' +Q.state.get('score').toString();
+
+                if (score >= 90) {
+                    Q.stageScene('endGame', 1);
+                    Q.stage(0).pause();
+                    clearInterval(interval);
+                }
+                pensionLbl.p.label = 'Time: ' + Q.state.get('score').toString();
             })
             container.fit(20,20);
         });
@@ -256,7 +258,7 @@
         });
         
         Q.scene('victory', function(stage) {
-            stage.insert(
+            var v = stage.insert(
                 new Q.UI.Text({
                     x:Q.width/2,
                     y:Q.height/2,
@@ -265,7 +267,16 @@
                     color: 'gold',
                     label: "VICTORY! You\'re cooler than Batman!"
                 }))
+            stage.insert(new Q.UI.Text({
+                x:Q.width/2,
+                y:Q.height/2 + 30,
+                family: 'Helvetica',
+                size: 36,
+                color: 'gold',
+                label: "Score: " + Q.state.get("score").toString()
+            }));
                 Q.play('kids_cheer.mp3');
+                clearInterval(interval);
         });
 
         Q.load('question.mp3, start_sound.mp3, kids_cheer.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
