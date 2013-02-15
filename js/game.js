@@ -87,12 +87,12 @@
                 this.add('2d');
                 this.on('hit.sprite', function (collision) {
                     if (collision.obj.isA('OlaNordmann')) {
-
+                        var question = questions[Math.floor((Math.random() * questions.length - 1) + 1)]
                         Q.stageScene('showQuestion', 1, {
-                            questionText: "Hva heter onkelen til Donald Duck?",
-                            alternativeA: "Onkel Skrue",
-                            alternativeB: "Fetter Anton",
-                            correctAnswer: "A",
+                            questionText: question.questionText,
+                            alternativeA: question.alternativeA,
+                            alternativeB: question.alternativeB,
+                            correctAnswer: question.correctAnswer,
                             q: this
                         });
                     }
@@ -284,7 +284,7 @@
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
             Q.stageScene('level');
-            Q.stageScene('hud', 1)
+            Q.stageScene('hud', 1);
         });
 
         var questions = [
