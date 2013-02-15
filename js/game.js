@@ -208,7 +208,7 @@
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
-            stage.insert(new Q.Finish({x: 920, y:360 }));
+            stage.insert(new Q.Finish({x: 940, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
