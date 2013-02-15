@@ -108,9 +108,17 @@
                 this.add('2d');
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('OlaNordmann')) {
+                        var time = 0;
 	                    this.destroy();
 	                    collision.obj.p.gravity = -1;
-	                    Q.stageScene('endGame',1);
+	                    setInterval(function () {
+	                       time = time +1;
+	                       if(time === 3){
+	                          Q.stage(0).pause();
+	                          clearInterval(interval);
+	                          Q.stageScene('endGame',1);
+	                       }
+	                    }, 1000);
                     }
                 });
             }
