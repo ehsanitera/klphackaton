@@ -19,7 +19,7 @@
 
         Q.input.joypadControls();
 
-        Q.animations('Mario', {
+        Q.animations('OlaNordmann', {
             run_up: {
                 frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 rate: 1 / 15
@@ -44,10 +44,10 @@
 
         });
         var lastDir = "right";
-        Q.Sprite.extend('Mario', {
+        Q.Sprite.extend('OlaNordmann', {
             init: function (p) {
                 this._super(p, {
-                    sprite: 'Mario',
+                    sprite: 'OlaNordmann',
                     sheet: 'OlaNordmann',
                     gravity: 0,
                     stepDistance: 16
@@ -84,7 +84,7 @@
                 });
                 this.add('2d');
                 this.on('hit.sprite', function(collision) {
-                    if (collision.obj.isA('Mario')) {
+                    if (collision.obj.isA('OlaNordmann')) {
 	                    this.destroy();	
                     	Q.stageScene('showQuestion', 1, {
                     		questionText: "Hva heter onkelen til Donald Duck?", 
@@ -152,7 +152,7 @@
             stage.insert(new Q.Question({x: 248, y:380 }));
             stage.insert(new Q.Question({x: 198, y:190 }));
             stage.insert(new Q.Question({x: 248, y:470 }));
-            var hero = stage.insert(new Q.Mario({ x: 0, y: 820 }));
+            var hero = stage.insert(new Q.OlaNordmann({ x: 0, y: 820 }));
             stage.add('viewport').follow(hero);
         });
 
