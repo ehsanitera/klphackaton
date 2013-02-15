@@ -97,6 +97,24 @@
                 });
             }
         });
+        
+        Q.Sprite.extend('Finish', {
+            init: function(p) {
+                this._super(p, {
+                    sprite: 'Finish',
+                    sheet: 'Finish',
+                    gravity: 0
+                });
+                this.add('2d');
+                this.on('hit.sprite', function(collision) {
+                    if (collision.obj.isA('OlaNordmann')) {
+	                    this.destroy();
+	                    Q.stageScene('endGame',1);
+                        Q.stage(0).pause();
+                    }
+                });
+            }
+        });
 
 
         Q.scene('showQuestion', function (stage) {
@@ -172,6 +190,7 @@
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
+            stage.insert(new Q.Finish({x: 900, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
