@@ -215,7 +215,7 @@
 
         Q.scene('hud', function(stage) {
             var container = stage.insert(new Q.UI.Container({
-                x: Q.width/16,
+                x: Q.width/12,
                 y: Q.height/16,
                 fill: "gray",
                 border: 5,
@@ -239,7 +239,7 @@
                     Q.stage(0).pause();
                     clearInterval(interval);
                 }
-                pensionLbl.p.label = 'Time: ' + Q.state.get('score').toString();
+                pensionLbl.p.label = 'Tid: ' + Q.state.get('score').toString();
             })
             container.fit(20,20);
         });
