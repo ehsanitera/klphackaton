@@ -186,7 +186,7 @@
             for (var i = 0; i < tiles.length; i++) {
                 for (var j = 0; j < tiles[i].length; j++) {
                     if (!tiles[i][j]) {
-                        found.push({y: (i * 16), x: (j * 16)})
+                        found.push({y: (j * 16), x: (i * 16)})
                     }
                 }
             }
