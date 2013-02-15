@@ -195,27 +195,29 @@
             stage.add('viewport').follow(hero);
         });
 
-        Q.scene('hud', function (stage) {
+        Q.scene('hud', function(stage) {
             var pensionLbl = stage.insert(new Q.UI.Text({
                 x: Q.width / 2,
-                y: 20,
+                y:30,
                 align: 'center',
-                family: 'Monospace',
-                size: 16,
-                label: score.toString()
+                family: 'Helvetica',
+                size: 24,
+                color: 'white',
+                label: 'Time: ' +score.toString()
             }));
         });
 
-        Q.scene('endGame', function (stage) {
+        Q.scene('endGame', function(stage) {
             stage.insert(
                 new Q.UI.Text({
-                    x: Q.width / 2,
-                    y: Q.height / 2,
-                    family: 'Monospace',
+                    x:Q.width/2,
+                    y:Q.height/2,
+                    family: 'Helvetica',
                     size: 24,
-                    label: 'Dun dun dun...Game over!'
+                    color: 'white',
+                    label: 'Game Over!'
                 }))
-            Q.play('game_over.mp3');
+                Q.play('game_over.mp3');
         });
 
         Q.load('start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
