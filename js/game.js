@@ -95,6 +95,7 @@
                             correctAnswer: question.correctAnswer,
                             q: this
                         });
+                        Q.stage(0).pause();
                     }
                 });
             }
@@ -168,6 +169,7 @@
                     Q.state.inc("score", -5)
                 }
                 Q.stageScene('hud', 1)
+                Q.stage(0).unpause();
             };
 
             buttonA.on("click", function () {
