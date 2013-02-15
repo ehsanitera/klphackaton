@@ -194,10 +194,10 @@
                 Q.play('game_over.mp3');
         });
 
-        Q.load('main_theme.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
-            Q.play('main_theme.mp3');
+            Q.play('start_sound.mp3');
             Q.stageScene('level');
             Q.stageScene('hud', 1)
         });
