@@ -9,7 +9,7 @@
 
         var interval = setInterval(function () {
             score = score + 1;
-            Q.state.inc("score", 1);
+            Q.stageScene('hud', 1);
             if (score === 120) {
                 Q.stageScene('endGame', 1);
                 Q.stage(0).pause();
@@ -43,6 +43,7 @@
 
 
         });
+        var lastDir = "right";
         Q.Sprite.extend('OlaNordmann', {
             init: function (p) {
                 this._super(p, {
@@ -96,9 +97,36 @@
                 });
             }
         });
+        
+        Q.Sprite.extend('Finish', {
+            init: function(p) {
+                this._super(p, {
+                    sprite: 'Finish',
+                    sheet: 'Finish',
+                    gravity: 0
+                });
+                this.add('2d');
+                this.on('hit.sprite', function(collision) {
+                    if (collision.obj.isA('OlaNordmann')) {
+                        var time = 0;
+	                    this.destroy();
+	                    collision.obj.p.gravity = -1;
+	                    setInterval(function () {
+	                       time = time +1;
+	                       if(time === 3){
+	                          Q.stage(0).pause();
+	                          clearInterval(interval);
+	                          Q.stageScene('endGame',1);
+	                       }
+	                    }, 1000);
+                    }
+                });
+            }
+        });
 
 
         Q.scene('showQuestion', function (stage) {
+        	Q.play('question.mp3');
             var container = stage.insert(new Q.UI.Container({
                 x: Q.width / 2,
                 y: Q.height / 2,
@@ -166,42 +194,42 @@
             });
             var freeAreas = findEmptyTiles(tileLayer.p.tiles);
             stage.collisionLayer(tileLayer);
-            var numQs = 10;
+            var numQs = Math.floor((Math.random() * 10) + 1);
             for (var q = 0; q < numQs; q++) {
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
+            stage.insert(new Q.Finish({x: 920, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
 
-        Q.scene('hud', function (stage) {
+        Q.scene('hud', function(stage) {
             var pensionLbl = stage.insert(new Q.UI.Text({
                 x: Q.width / 2,
-                y: 20,
+                y:30,
                 align: 'center',
-                family: 'Monospace',
-                size: 16,
-                label: score.toString()
+                family: 'Helvetica',
+                size: 24,
+                color: 'white',
+                label: 'Time: ' +score.toString()
             }));
-            Q.state.on('change.score', function() {
-                pensionLbl.p.label = Q.state.get('score').toString();
-            })
         });
 
-        Q.scene('endGame', function (stage) {
+        Q.scene('endGame', function(stage) {
             stage.insert(
                 new Q.UI.Text({
-                    x: Q.width / 2,
-                    y: Q.height / 2,
-                    family: 'Monospace',
+                    x:Q.width/2,
+                    y:Q.height/2,
+                    family: 'Helvetica',
                     size: 24,
-                    label: 'Dun dun dun...Game over!'
+                    color: 'white',
+                    label: 'Game Over!'
                 }))
-            Q.play('game_over.mp3');
+                Q.play('game_over.mp3');
         });
 
-        Q.load('start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('question.mp3, start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
