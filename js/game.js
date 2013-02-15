@@ -203,7 +203,7 @@
             });
             var freeAreas = findEmptyTiles(tileLayer.p.tiles);
             stage.collisionLayer(tileLayer);
-            var numQs = Math.floor((Math.random() * 10) + 1);
+            var numQs = 15;
             for (var q = 0; q < numQs; q++) {
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
