@@ -212,9 +212,18 @@
         });
 
         Q.scene('hud', function(stage) {
-            var pensionLbl = stage.insert(new Q.UI.Text({
-                x: Q.width / 2,
-                y:30,
+            var container = stage.insert(new Q.UI.Container({
+                x: Q.width/16,
+                y: Q.height/16,
+                fill: "gray",
+                border: 5,
+                shadow: 10,
+                shadowColor: "rgba(0,0,0,0.5)"
+            }));
+
+            var pensionLbl = container.insert(new Q.UI.Text({
+                x:0,
+                y:0,
                 align: 'center',
                 family: 'Helvetica',
                 size: 24,
@@ -224,7 +233,7 @@
             Q.state.on('change.score', function() {
                 pensionLbl.p.label = 'Time: ' +Q.state.get('score').toString();
             })
-
+            container.fit(20,20);
         });
 
         Q.scene('endGame', function(stage) {
