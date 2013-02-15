@@ -109,8 +109,8 @@
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('OlaNordmann')) {
 	                    this.destroy();
+	                    collision.obj.p.gravity = -1;
 	                    Q.stageScene('endGame',1);
-                        Q.stage(0).pause();
                     }
                 });
             }
@@ -191,7 +191,7 @@
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
-            stage.insert(new Q.Finish({x: 900, y:360 }));
+            stage.insert(new Q.Finish({x: 920, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
