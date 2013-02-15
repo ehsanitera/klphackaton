@@ -288,37 +288,73 @@
         });
 
         var questions = [
-            {
-                questionText: "Hva heter onkelen til Donald Duck?",
-                alternativeA: "Onkel Skrue",
-                alternativeB: "Fetter Anton",
-                correctAnswer: "A"
-            },
-            {
-                questionText: "Hva heter onkelen til Donald Duck?",
-                alternativeA: "Onkel Skrue",
-                alternativeB: "Fetter Anton",
-                correctAnswer: "A"
-            },
-            {
-                questionText: "Hva heter onkelen til Donald Duck?",
-                alternativeA: "Onkel Skrue",
-                alternativeB: "Fetter Anton",
-                correctAnswer: "A"
-            },
-            {
-                questionText: "Hva heter onkelen til Donald Duck?",
-                alternativeA: "Onkel Skrue",
-                alternativeB: "Fetter Anton",
-                correctAnswer: "A"
-            },
-            {
-                questionText: "Hva heter onkelen til Donald Duck?",
-                alternativeA: "Onkel Skrue",
-                alternativeB: "Fetter Anton",
-                correctAnswer: "A"
-            }
-        ];
+			{
+				questionText: "Hvor mange brukskontoer kan du opprette i KLP Banken?",
+				alternativeA: "20 brukskontoer",
+				alternativeB: "9 brukskontoer",
+				correctAnswer: "B"
+			},
+			{
+				questionText: "Hvilke type eiendommer kan man stille som sikkerhet for et lån?",
+				alternativeA: "Selveiet bolig og fritidsbolig, borettslags- og aksjeleilighet. Vi kan ikke ta pant i obligasjonsleiligheter og ubebygde tomter.",
+				alternativeB: "Selveiet bolig og fritidsbolig, borettslags- og aksjeleilighet, obligasjonsleiligheter og ubebygde tomter.",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvem kan søke om kredittkort?",
+				alternativeA: "KLP Banken tilbyr ikke kredittkort.",
+				alternativeB: "Alle kan søke, men ikke alle får innvilget.",
+				correctAnswer: "B"
+			},
+			{
+				questionText: "Kan man låne til bolig i utlandet?",
+				alternativeA: "Ja",
+				alternativeB: "Nei",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Hvilket team burde vinne Hackathon?",
+				alternativeA: "PinkNDales",
+				alternativeB: "Finnes ingen andre alternativer",
+				correctAnswer: "A"
+			},
+			{
+				questionText: "Tilbyr KLP Banken kontokreditt?",
+				alternativeA: "Ja",
+				alternativeB: "Nei",
+				correctAnswer: "B"
+			}
+		];
     });
 }
     (window)
