@@ -3,8 +3,7 @@
         var score = 0;
         var Q = Quintus({ audioSupported: [ 'mp3', 'wav' ] }).
             include('Audio, Sprites, Anim, Scenes, Input, 2D, Touch, UI').
-            setup({maximize: true}).
-            controls(true).
+            setup({maximize: true}).touch().
             enableSound();
 
         var interval = setInterval(function () {
@@ -17,7 +16,15 @@
             }
         }, 1000);
 
-        Q.input.joypadControls();
+        Q.input.touchControls({
+      	  controls:  [ ['left','<' ],
+      	               ['right','>' ],
+      	               [],
+      	               ['up','^'],
+      	               ['down', 'v' ]]
+      	});
+      
+      Q.input.keyboardControls();
 
         Q.animations('OlaNordmann', {
             run_up: {
@@ -116,7 +123,7 @@
 	                       if(time === 3){
 	                          Q.stage(0).pause();
 	                          clearInterval(interval);
-	                          Q.stageScene('endGame',1);
+	                          Q.stageScene('victory',1);
 	                       }
 	                    }, 1000);
                     }
@@ -161,12 +168,18 @@
 
             buttonA.on("click", function () {
                 console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
-                stage.options.q.destroy();
+                if(stage.options.correctAnswer === "A") {
+	                stage.options.q.destroy();
+	                container.destroy();
+                }
             });
 
             buttonB.on("click", function () {
                 console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
-                stage.options.q.destroy();
+                if(stage.options.correctAnswer === "B") {
+	                stage.options.q.destroy();
+	                container.destroy();
+                }
             });
 
             container.fit(20);
@@ -205,9 +218,18 @@
         });
 
         Q.scene('hud', function(stage) {
-            var pensionLbl = stage.insert(new Q.UI.Text({
-                x: Q.width / 2,
-                y:30,
+            var container = stage.insert(new Q.UI.Container({
+                x: Q.width/16,
+                y: Q.height/16,
+                fill: "gray",
+                border: 5,
+                shadow: 10,
+                shadowColor: "rgba(0,0,0,0.5)"
+            }));
+
+            var pensionLbl = container.insert(new Q.UI.Text({
+                x:0,
+                y:0,
                 align: 'center',
                 family: 'Helvetica',
                 size: 24,
@@ -217,7 +239,7 @@
             Q.state.on('change.score', function() {
                 pensionLbl.p.label = 'Time: ' +Q.state.get('score').toString();
             })
-
+            container.fit(20,20);
         });
 
         Q.scene('endGame', function(stage) {
@@ -232,8 +254,21 @@
                 }))
                 Q.play('game_over.mp3');
         });
+        
+        Q.scene('victory', function(stage) {
+            stage.insert(
+                new Q.UI.Text({
+                    x:Q.width/2,
+                    y:Q.height/2,
+                    family: 'Helvetica',
+                    size: 36,
+                    color: 'gold',
+                    label: "VICTORY! You\'re cooler than Batman!"
+                }))
+                Q.play('kids_cheer.mp3');
+        });
 
-        Q.load('question.mp3, start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('question.mp3, start_sound.mp3, kids_cheer.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
