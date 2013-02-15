@@ -186,7 +186,7 @@
             for (var i = 0; i < tiles.length; i++) {
                 for (var j = 0; j < tiles[i].length; j++) {
                     if (!tiles[i][j]) {
-                        found.push({y: (i * 16), x: (j * 16)})
+                        found.push({y: (j * 16), x: (i * 16)})
                     }
                 }
             }
@@ -203,19 +203,19 @@
             });
             var freeAreas = findEmptyTiles(tileLayer.p.tiles);
             stage.collisionLayer(tileLayer);
-            var numQs = Math.floor((Math.random() * 10) + 1);
+            var numQs = 15;
             for (var q = 0; q < numQs; q++) {
                 var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
                 stage.insert(new Q.Question(pos));
             }
-            stage.insert(new Q.Finish({x: 920, y:360 }));
+            stage.insert(new Q.Finish({x: 940, y:360 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
 
         Q.scene('hud', function(stage) {
             var container = stage.insert(new Q.UI.Container({
-                x: Q.width/16,
+                x: Q.width/12,
                 y: Q.height/16,
                 fill: "gray",
                 border: 5,
@@ -239,7 +239,7 @@
                     Q.stage(0).pause();
                     clearInterval(interval);
                 }
-                pensionLbl.p.label = 'Time: ' + Q.state.get('score').toString();
+                pensionLbl.p.label = 'Tid: ' + Q.state.get('score').toString();
             })
             container.fit(20,20);
         });
