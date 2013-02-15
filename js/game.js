@@ -118,6 +118,7 @@
 
 
         Q.scene('showQuestion', function (stage) {
+        	Q.play('question.mp3');
             var container = stage.insert(new Q.UI.Container({
                 x: Q.width / 2,
                 y: Q.height / 2,
@@ -220,7 +221,7 @@
                 Q.play('game_over.mp3');
         });
 
-        Q.load('start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('question.mp3, start_sound.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
