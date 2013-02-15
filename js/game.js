@@ -215,7 +215,7 @@
                 label: 'Time: ' +score.toString()
             }));
             Q.state.on('change.score', function() {
-                pensionLbl.p.label = Q.state.get('score').toString();
+                pensionLbl.p.label = 'Time: ' +Q.state.get('score').toString();
             })
 
         });
