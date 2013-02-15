@@ -74,7 +74,7 @@
 
             }
         });
-        
+
         Q.Sprite.extend('Question', {
             init: function(p) {
                 this._super(p, {
@@ -85,26 +85,26 @@
                 this.add('2d');
                 this.on('hit.sprite', function(collision) {
                     if (collision.obj.isA('OlaNordmann')) {
-	                    this.destroy();	
+	                    this.destroy();
                     	Q.stageScene('showQuestion', 1, {
-                    		questionText: "Hva heter onkelen til Donald Duck?", 
-                    		alternativeA: "Onkel Skrue", 
-                    		alternativeB: "Fetter Anton", 
+                    		questionText: "Hva heter onkelen til Donald Duck?",
+                    		alternativeA: "Onkel Skrue",
+                    		alternativeB: "Fetter Anton",
                     		correctAnswer: "A"
                     	});
                     }
                 });
             }
         });
-        
-        
+
+
 		Q.scene('showQuestion', function(stage) {
 			var container = stage.insert(new Q.UI.Container({
 				x : Q.width / 2,
 				y : Q.height / 2,
 				fill : "rgba(0,0,0,0.6)"
 			}));
-			
+
 			var question = container.insert(new Q.UI.Text({
 				x : 0,
 				y : 0,
@@ -112,7 +112,7 @@
 				size: 16,
 				label : stage.options.questionText
 			}));
-			
+
 			var buttonA = container.insert(new Q.UI.Button({
 				x : 0,
 				y : question.p.h + 20,
@@ -121,7 +121,7 @@
 				fill : "#CCCCCC",
 				label : stage.options.alternativeA
 			}));
-			
+
 			var buttonB = container.insert(new Q.UI.Button({
 				x : 0,
 				y : question.p.h + 10 + buttonA.p.h + 20,
@@ -130,17 +130,30 @@
 				fill : "#CCCCCC",
 				label : stage.options.alternativeB
 			}));
-			
+
 			buttonA.on("click", function() {
 				console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
 			});
-			
+
 			buttonB.on("click", function() {
 				console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
 			});
 
 			container.fit(20);
-		});        
+		});
+
+        var findEmptyTiles = function (tiles) {
+            var found = [];
+            for (var i = 0; i < tiles.length; i++) {
+                for (var j = 0; j < tiles[i].length; j++) {
+                    if (!tiles[i][j]) {
+                        found.push({y: (i * 16), x: (j * 16)})
+                    }
+                }
+            }
+            return found;
+        };
+
 
         Q.scene('level', function (stage) {
             stage.collisionLayer(new Q.TileLayer({
@@ -149,13 +162,11 @@
                 tileW: 16,
                 tileH: 16
             }));
-            var freeAreas = findEmptyTiles(tileLayer.p.tiles);
-            stage.collisionLayer(tileLayer);
-            var numQs = Math.floor((Math.random() * 10) + 1);
-            for (var q = 0; q < numQs; q++) {
-                var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
-                stage.insert(new Q.Question(pos));
-            }
+
+
+            stage.insert(new Q.Question({x: 248, y:380 }));
+            stage.insert(new Q.Question({x: 198, y:190 }));
+            stage.insert(new Q.Question({x: 248, y:470 }));
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
