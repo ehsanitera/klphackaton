@@ -3,9 +3,7 @@
         var score = 0;
         var Q = Quintus({ audioSupported: [ 'mp3', 'wav' ] }).
             include('Audio, Sprites, Anim, Scenes, Input, 2D, Touch, UI').
-            setup({maximize: true}).
-            controls().
-            touch().
+            setup({maximize: true}).touch().
             enableSound();
 
         var interval = setInterval(function () {
@@ -18,7 +16,15 @@
             }
         }, 1000);
 
-        Q.input.joypadControls();
+        Q.input.touchControls({
+      	  controls:  [ ['left','<' ],
+      	               ['right','>' ],
+      	               [],
+      	               ['up','^'],
+      	               ['down', 'v' ]]
+      	});
+      
+      Q.input.keyboardControls();
 
         Q.animations('OlaNordmann', {
             run_up: {
