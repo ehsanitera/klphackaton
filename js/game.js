@@ -167,6 +167,8 @@
                 container.destroy();
                 if(stage.options.correctAnswer === answer) {
                     Q.state.inc("score", -5)
+                } else {
+                	Q.play('fail_answer.mp3');
                 }
                 Q.stageScene('hud', 1)
                 Q.stage(0).unpause();
@@ -281,7 +283,7 @@
                 clearInterval(interval);
         });
 
-        Q.load('question.mp3, start_sound.mp3, kids_cheer.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
+        Q.load('fail_answer.mp3, question.mp3, start_sound.mp3, kids_cheer.mp3, game_over.mp3, sprites.png, sprites.json, level.json', function () {
             Q.compileSheets('sprites.png', 'sprites.json');
             Q.state.reset({ score: 0 });
             Q.play('start_sound.mp3');
