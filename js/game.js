@@ -9,7 +9,7 @@
 
         var interval = setInterval(function () {
             score = score + 1;
-            Q.stageScene('hud', 1);
+            Q.state.inc('score', 1);
             if (score === 120) {
                 Q.stageScene('endGame', 1);
                 Q.stage(0).pause();
@@ -214,6 +214,10 @@
                 color: 'white',
                 label: 'Time: ' +score.toString()
             }));
+            Q.state.on('change.score', function() {
+                pensionLbl.p.label = Q.state.get('score').toString();
+            })
+
         });
 
         Q.scene('endGame', function(stage) {
