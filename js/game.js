@@ -149,9 +149,13 @@
                 tileW: 16,
                 tileH: 16
             }));
-            stage.insert(new Q.Question({x: 248, y:380 }));
-            stage.insert(new Q.Question({x: 198, y:190 }));
-            stage.insert(new Q.Question({x: 248, y:470 }));
+            var freeAreas = findEmptyTiles(tileLayer.p.tiles);
+            stage.collisionLayer(tileLayer);
+            var numQs = Math.floor((Math.random() * 10) + 1);
+            for (var q = 0; q < numQs; q++) {
+                var pos = freeAreas[Math.floor((Math.random() * freeAreas.length - 1) + 1)];
+                stage.insert(new Q.Question(pos));
+            }
             var hero = stage.insert(new Q.OlaNordmann({ x: 30, y: 820 }));
             stage.add('viewport').follow(hero);
         });
