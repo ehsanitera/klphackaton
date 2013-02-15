@@ -4,7 +4,8 @@
         var Q = Quintus({ audioSupported: [ 'mp3', 'wav' ] }).
             include('Audio, Sprites, Anim, Scenes, Input, 2D, Touch, UI').
             setup({maximize: true}).
-            controls(true).
+            controls().
+            touch().
             enableSound();
 
         var interval = setInterval(function () {
@@ -161,12 +162,18 @@
 
             buttonA.on("click", function () {
                 console.log("buttonA clicked, correct answer", stage.options.correctAnswer);
-                stage.options.q.destroy();
+                if(stage.options.correctAnswer === "A") {
+	                stage.options.q.destroy();
+	                container.destroy();
+                }
             });
 
             buttonB.on("click", function () {
                 console.log("buttonB clicked, correct answer", stage.options.correctAnswer);
-                stage.options.q.destroy();
+                if(stage.options.correctAnswer === "B") {
+	                stage.options.q.destroy();
+	                container.destroy();
+                }
             });
 
             container.fit(20);
